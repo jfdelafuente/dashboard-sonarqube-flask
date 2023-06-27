@@ -1,0 +1,24 @@
+.rating-1 {
+    font-size: 1.3rem; 
+    color: #42dc38;
+}
+
+.rating-2 {
+    font-size: 1.3rem; 
+    color: #91dd8c;
+}
+
+.rating-3 {
+    font-size: 1.3rem; 
+    color: rgb(247, 210, 46);
+}
+
+.rating-4 {
+    font-size: 1.3rem; 
+    color: rgb(255, 99, 99);
+}
+
+.rating-5 {
+    font-size: 1.3rem; 
+    color: red;
+}

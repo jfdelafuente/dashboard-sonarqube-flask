@@ -1,0 +1,38 @@
+{% extends "layouts/base.html" %}
+{% import "bootstrap/utils.html" as utils %}
+{% block title %}Tablas Métricas{% endblock %}
+
+{% block content %}
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Métricas</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{{ url_for('home.index') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Métricas</li>
+            </ol>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Issues</h5><h6 class="card-subtitle mb-1 text-muted">There are three types of issues:</h6>
+                    <div class="row">
+                        <div class="col-sm alert alert-primary">
+                          Bugs : A coding error that will break your code and needs to be fixed immediately.
+                        </div>
+                        <div class="col-sm alert alert-info">
+                          Vulnerabilities : A point in your code that's open to attack.
+                        </div>
+                        <div class="col-sm alert alert-primary">
+                          Code Smells : A maintainability issue that makes your code confusing and difficult to maintain.
+                        </div>
+                      </div>
+                </div>
+            </div>
+            {% include "includes/incl_table.html" %}
+        </div>
+    </main>
+    {% include "includes/incl_footer.html" %}
+</div>
+{% endblock %}
+{% block javascripts %}
+  <script src="{{url_for('static',filename='js/datatables-simple-demo.js')}}"></script>
+{% endblock %}
