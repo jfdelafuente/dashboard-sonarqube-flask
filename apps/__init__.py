@@ -47,20 +47,13 @@ def create_app(config):
     app = Flask(__name__)
     # Configure the flask app instance
     app.config.from_object(config)
-    
-    
     # Register blueprints
     register_blueprints(app)
-
     # Initialize flask extension objects
     initialize_extensions(app)
-
     # Configure logging
     configure_logging(app)
-
     # Register error handlers
     register_error_handlers(app)
-    
     # configure_database(app)
-    
     return app
