@@ -1,7 +1,7 @@
 from flask import render_template, request, abort
 from apps.home import home
 from datetime import datetime
-from apps.bbdd.sonar import getAllMetricas, getDistinctHistorico, getOneHistorico, getAllHistorico, getRepositorios
+from apps.bbdd.sonar import getAllMetricas, getDistinctHistorico, getOneHistorico, getRepositorios, getDistinctProveedor, getOneProveedor
 
 
 @home.route("/")
@@ -20,7 +20,6 @@ def metricas():
 @home.route("/charts")
 def charts():
     return render_template('home/charts.html')
-
 
 @home.route("/layout-sidenav-light")
 def layout_sidenav_light():
@@ -51,4 +50,12 @@ def charts_historico():
 @home.route('/admin')
 def admin():
     abort(404)
-
+    
+@home.route('/proveedores',  methods=('GET', 'POST'))
+def proveedores():
+    apps = getDistinctProveedor()
+    if request.method == 'POST':
+        project = request.form['project_name']
+        return render_template('home/proveedores.html', apps=apps, scores=getOneProveedor(project))
+    else:
+        return render_template('home/proveedores.html', apps=apps)

@@ -1,7 +1,6 @@
-from flask import render_template, jsonify, url_for, redirect, request
+from flask import jsonify, url_for, redirect
 from apps.api import api
-from datetime import datetime
-from apps.bbdd.sonar import getAllMetricas, getDistinctHistorico, getOneHistorico, getAllHistorico, getRepositorios
+from apps.bbdd.sonar import getAllHistorico, getRepositorios, get_A_Reliability, get_C_Reliability, get_E_Reliability
 
 
 @api.route("/historico/<project>")
@@ -42,4 +41,22 @@ def charts_data():
     values = [row[1] for row in scores]
     data["labels"] = labels
     data["values"] = values
+    return jsonify(data)
+
+@api.route("/rating/<proveedor>")
+def rating(proveedor):
+    data= {}
+    scoresA = get_A_Reliability(proveedor)
+    data["reliability_A"] = [row[0] for row in scoresA]
+    data["reliability_A_relia"] = [row[1] for row in scoresA]
+    
+    scoresC= get_C_Reliability(proveedor)
+    data["reliability_C"] = [row[0] for row in scoresC]
+    data["reliability_C_relia"] = [row[1] for row in scoresC]
+    
+    scoresE= get_E_Reliability(proveedor)
+    data["reliability_E"] = [row[0] for row in scoresE]
+    data["reliability_E_relia"] = [row[1] for row in scoresE]
+
+
     return jsonify(data)

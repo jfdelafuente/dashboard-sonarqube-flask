@@ -7,10 +7,13 @@ CREATE TABLE metricas (
     fecha TEXT,
     bugs INTEGER,
     reliability_rating INTEGER,
+    reliability_label TEXT,
     vulnerabilities INTEGER,
     security_rating INTEGER,
+    security_label TEXT,
     code_smells INTEGER,
     sqale_rating INTEGER,
+    sqale_label TEXT,
     alert_status TEXT,
     app_sonar TEXT
 );
@@ -24,10 +27,21 @@ CREATE TABLE historico (
     fecha TEXT,
     bugs INTEGER,
     reliability_rating INTEGER,
+    reliability_label TEXT,
     vulnerabilities INTEGER,
     security_rating INTEGER,
+    security_label TEXT,
     code_smells INTEGER,
     sqale_rating INTEGER,
+    sqale_label TEXT,
     alert_status TEXT,
     app_sonar TEXT
+);
+
+DROP TABLE IF EXISTS proveedor;
+
+CREATE TABLE proveedor (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    aplicacion TEXT,
+    proveedor TEXT
 );

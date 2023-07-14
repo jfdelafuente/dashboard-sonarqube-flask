@@ -45,11 +45,11 @@
                       <td>{{ score.aplicacion }}</td>
                       <td><a href="https://softwarequality-cfmpro-tc.shared-nonprod.cloud.si.orange.es/dashboard?id={{ score.app_sonar }}"  target="_blank" rel="noopener noreferrer">{{ score.fecha }}</a></td>
                       <td class="align-middle">{{ score.bugs }}</td>
-                      <td><i class="badge rounded-pill rating-{{score.reliability_rating}}">{{score.reliability_label}}</i></td>
+                      <td><i class="bi bi-{{ score.reliability_rating }}-circle-fill rating-{{score.reliability_rating}}">{{score.reliability_label}}</i></td>
                       <td>{{ score.vulnerabilities }}</td>
-                      <td><i class="badge rounded-pill rating-{{score.security_rating}}">{{score.security_label}}</i></td>
+                      <td><i class="bi bi-{{ score.security_rating }}-circle-fill rating-{{score.security_rating}}">{{score.security_label}}</i></td>
                       <td>{{ score.code_smells }}</td>
-                      <td><i class="badge rounded-pill rating-{{score.sqale_rating}}">{{score.sqale_label}}</i></td>
+                      <td><i class="bi bi-{{ score.sqale_rating }}-circle-fill rating-{{score.sqale_rating}}">{{score.sqale_label}}</i></td>
                       <td>
                         {% if score.alert_status == "OK" %}
                         <span class="badge text-bg-success rounded-pill">{{ score.alert_status }}</span>
