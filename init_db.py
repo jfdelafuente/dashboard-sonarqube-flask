@@ -80,7 +80,7 @@ def create_proveedores(conn, project):
 def main():
     
     database = r"" + os.environ['DATABASE']
-    # datos_csv = r"" + os.environ['DATOS_LABELS_CSV']
+    # datos_csv = r"" + os.environ['DATOS_CSV']
     # historico_csv = r"" + os.environ['HISTORICO_CSV']
     datos_csv = 'metricas.csv'
     historico_csv = 'historico.csv'
@@ -97,7 +97,7 @@ def main():
     df_measures = extract_from_csv(datos_csv)
     with conn:
         for i, measure in df_measures.iterrows():
-            project = (measure["proyecto"] +"-application-java", 
+            project = (measure["proyecto"] +"-application-"+ measure["lenguaje"], 
                        measure["aplicacion"],
                        measure["date"], 
                        int(measure["bugs"]),
@@ -121,7 +121,7 @@ def main():
     df_measures = extract_from_csv(historico_csv)
     with conn:    
         for i, measure in df_measures.iterrows():
-            project = (measure["proyecto"] +"-application-java", 
+            project = (measure["proyecto"] +"-application-"+ measure["lenguaje"], 
                        measure["aplicacion"],
                        measure["date"], 
                        int(measure["bugs"]),

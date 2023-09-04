@@ -32,7 +32,7 @@ $ set FLASK_ENV=development
 $
 $ # Powershell
 $ $env:FLASK_APP = ".\run.py"
-$ $env:FLASK_ENV = "development"
+$ $env:FLASK_ENV = "Development"
 $ $env:FLASK_DEBUG = "true"
 
 Start the app
@@ -40,8 +40,6 @@ Start the app
 $ flask run
 
 At this point, the app runs at http://127.0.0.1:5000/.
-
-
 
 ## ✨ Start the app in Docker
 
@@ -73,3 +71,16 @@ Visit `http://localhost:5085` in your browser. The app should be up & running.
 
 <br />
 
+
+
+(venv) python -m pytest --setup-show --cov=apps --cov-report=html
+
+
+
+
+ultimas modificaciones
+
+lanzar test_measures.ipynb para extraer los datos del proyecto de sonar.
+Esos datos se transforman y se creand dos nuevos ficheros; historico.csv y metricas.csv
+
+Posteriormente se lanza init_db.py para recrear la bbdd y cargar los csv (historico, metrica y proveedores)
