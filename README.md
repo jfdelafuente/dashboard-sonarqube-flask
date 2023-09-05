@@ -8,6 +8,13 @@ python3.8 -m venv venv
 
 $ virtualenv venv
 $ source venv/bin/activate
+
+# Para desactivar
+$ deactivate
+
+# upgrade pip
+$ python -m pip install --upgrade pip
+
 $ pip3 install -r requirements.txt
 
 Set Up Flask Environment
@@ -38,6 +45,8 @@ $ $env:FLASK_DEBUG = "true"
 Start the app
 
 $ flask run
+
+$ flask --app run --debug run
 
 At this point, the app runs at http://127.0.0.1:5000/.
 

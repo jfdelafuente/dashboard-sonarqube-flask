@@ -1,5 +1,5 @@
 import os
-from   flask_minify  import Minify
+# from   flask_minify  import Minify
 from   sys import exit
 
 from config import config_dict
@@ -16,8 +16,8 @@ except KeyError:
 
 app = create_app(app_config)
 
-if not app_config.DEBUG:
-    Minify(app=app, html=True, js=False, cssless=False)
+# if not app_config.DEBUG:
+#     Minify(app=app, html=True, js=False, cssless=False)
 
 if app_config.DEBUG:
     app.logger.info('DEBUG            = ' + str(app_config.DEBUG)             )
