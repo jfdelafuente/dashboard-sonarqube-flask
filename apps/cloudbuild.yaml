@@ -1,0 +1,11 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "us-central1-docker.pkg.dev/my-dashboardsonar-python/my-repository/dashboard-sonarqube-flask:v1",
+        ".",
+      ]
+images:
+  - "us-central1-docker.pkg.dev/my-dashboardsonar-python/my-repository/dashboard-sonarqube-flask:v1"
