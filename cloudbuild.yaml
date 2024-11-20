@@ -14,13 +14,21 @@
 
 # [START cloudbuild]
 steps:
+- name: 'python:3.7-slim'
+  id: Install dependencies
+  entrypoint: /bin/sh
+  args:
+  - -c
+    'echo "Installing Python dependencies"'
+    'python -m pip install --upgrade pip'
+
 # This step runs the unit tests on the app
 - name: 'python:3.7-slim'
   id: Test
   entrypoint: /bin/sh
   args:
   - -c
-  - 'pip install flask pytest && pytest || if [ $? -eq 5 ]; then echo "No tests were found, but continuing..."; else exit 1; fi'
+  - 'pip install flask pytest && pytest test'
 
 # This step builds the container image.
 - name: 'gcr.io/cloud-builders/docker'
