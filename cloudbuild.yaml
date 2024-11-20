@@ -28,7 +28,7 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
-  - 'pip install flask pytest && pytest test'
+  - 'pytest test'
 
 # This step builds the container image.
 - name: 'gcr.io/cloud-builders/docker'
