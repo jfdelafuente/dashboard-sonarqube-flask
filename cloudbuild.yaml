@@ -31,7 +31,7 @@ steps:
   args:
   - -c
   - |
-  - 'pytest test/'
+  - 'pytest test/ --junitxml=${SHORT_SHA}_test_log.xml'
 
 # This step builds the container image.
 - name: 'gcr.io/cloud-builders/docker'
@@ -52,4 +52,9 @@ steps:
   - 'europe-southwest1-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA'
 options:
   logging: CLOUD_LOGGING_ONLY
+artifacts:
+    objects:
+       location: 'gs://${_BUCKET_NAME}/'
+       paths:
+          - '${SHORT_SHA}_test_log.xml'
 # [END cloudbuild]
