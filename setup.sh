@@ -8,9 +8,11 @@ export PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format='value(pro
 export REGION=us-central1
 export ZONE=us-central1-a
 
+echo 'Proyecto :  $PROJECT_ID    en la zona $REGION'
 
 # If you're set to the wrong project
 gcloud config set project $PROJECT_ID
+gcloud auth application-defaul login
 gcloud auth application-default set-quota-project $PROJECT_ID
 gcloud config set compute/region $REGION
 
