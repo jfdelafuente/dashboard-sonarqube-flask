@@ -54,7 +54,7 @@ options:
   logging: CLOUD_LOGGING_ONLY
 artifacts:
   objects:
-    location: "gs://${_BUCKET_NAME}/"
+    location: "gs://my-sonar-bucket"
     paths:
       - "${SHORT_SHA}_test_log.xml"
 images:
