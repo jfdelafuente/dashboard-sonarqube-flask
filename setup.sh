@@ -1,19 +1,20 @@
 # Authenticate
 gcloud auth list
-gcloud config list project
+# gcloud config list project
 
 # Some useful initial setup
 export PROJECT_ID=$(gcloud config get-value project)
 export PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format='value(projectNumber)')
-export REGION=us-central1
-export ZONE=us-central1-a
+export REGION=europe-southwest1
+export ZONE=europe-southwest1-a
 
-echo 'Proyecto :  $PROJECT_ID    en la zona $REGION'
+echo 'Proyecto :  ' $PROJECT_ID 
+echo 'REGION: ' $REGION
 
 # If you're set to the wrong project
 gcloud config set project $PROJECT_ID
-gcloud auth application-defaul login
-gcloud auth application-default set-quota-project $PROJECT_ID
+# gcloud auth application-defaul login
+# gcloud auth application-default set-quota-project $PROJECT_ID
 gcloud config set compute/region $REGION
 
 # enable APIs
