@@ -14,47 +14,49 @@
 
 # [START cloudbuild]
 steps:
-- name: 'python:3.7-slim'
-  id: Install dependencies
-  entrypoint: /bin/sh
-  args:
-  - -c
-  - |
-  - 'echo "Installing Python dependencies"'
-  - 'python -m pip install --upgrade pip'
-  - 'pip install -r requirements.txt'
+  - name: "python:3.7-slim"
+    id: Install dependencies
+    entrypoint: /bin/sh
+    args:
+      - -c
+      - |
+      - 'echo "Installing Python dependencies"'
+      - "python -m pip install --upgrade pip"
+      - "pip install -r requirements.txt"
 
-# This step runs the unit tests on the app
-- name: 'python:3.7-slim'
-  id: Test
-  entrypoint: /bin/sh
-  args:
-  - -c
-  - |
-  - 'pytest test/ --junitxml=${SHORT_SHA}_test_log.xml'
+  # This step runs the unit tests on the app
+  - name: "python:3.7-slim"
+    id: Test
+    entrypoint: /bin/sh
+    args:
+      - -c
+      - |
+      - "pytest test/ --junitxml=${SHORT_SHA}_test_log.xml"
 
-# This step builds the container image.
-- name: 'gcr.io/cloud-builders/docker'
-  id: Build
-  args:
-  - 'build'
-  - '-t'
-  - 'europe-southwest1-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA'
-  - '.'
+  # This step builds the container image.
+  - name: "gcr.io/cloud-builders/docker"
+    id: Build
+    args:
+      - "build"
+      - "-t"
+      - "europe-southwest1-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA"
+      - "."
 
-# This step pushes the image to Artifact Registry
-# The PROJECT_ID and SHORT_SHA variables are automatically
-# replaced by Cloud Build.
-- name: 'gcr.io/cloud-builders/docker'
-  id: Push
-  args:
-  - 'push'
-  - 'europe-southwest1-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA'
+  # This step pushes the image to Artifact Registry
+  # The PROJECT_ID and SHORT_SHA variables are automatically
+  # replaced by Cloud Build.
+  - name: "gcr.io/cloud-builders/docker"
+    id: Push
+    args:
+      - "push"
+      - "europe-southwest1-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA"
 options:
   logging: CLOUD_LOGGING_ONLY
 artifacts:
-    objects:
-       location: 'gs://${_BUCKET_NAME}/'
-       paths:
-          - '${SHORT_SHA}_test_log.xml'
+  objects:
+    location: "gs://${_BUCKET_NAME}/"
+    paths:
+      - "${SHORT_SHA}_test_log.xml"
+images:
+  - europe-southwest1-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/dashboard-sonarqube-flask:${SHORT_SHA}
 # [END cloudbuild]
