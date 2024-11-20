@@ -19,8 +19,8 @@ steps:
   entrypoint: /bin/sh
   args:
   - -c
-    'echo "Installing Python dependencies"'
-    'python -m pip install --upgrade pip'
+  - 'echo "Installing Python dependencies"'
+  - 'python -m pip install --upgrade pip'
 
 # This step runs the unit tests on the app
 - name: 'python:3.7-slim'
