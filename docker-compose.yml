@@ -20,6 +20,22 @@ services:
       - web_network
     depends_on: 
       - dashboard-sonar-app
+  flask_db:
+    container_name: flask_db
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: demo_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
+  
 networks:
   db_network:
     driver: bridge

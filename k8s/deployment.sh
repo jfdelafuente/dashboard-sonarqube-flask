@@ -19,7 +19,6 @@ gcloud container clusters list
 # we need to obtain the credentials for our cluster
 gcloud container clusters get-credentials dashboard-sonar-cluster --zone $ZONE
 
-
 kubectl config current-context
 
 
