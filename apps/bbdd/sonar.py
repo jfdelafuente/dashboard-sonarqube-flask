@@ -1,4 +1,5 @@
 import sqlite3
+# import psycopg2
 import pandas as pd
 import os
 from dotenv import load_dotenv
@@ -6,8 +7,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def connect_to_db():
-    database = r"" + os.environ['DATABASE']
-    conn = sqlite3.connect(database)
+    DATABASE_URL = r"" + os.environ['DATABASE']
+    conn = sqlite3.connect(DATABASE_URL)
+    # DATABASE_URL = "postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]"
+    # conn = psycopg2.connect(DATABASE_URL)
+    
     conn.row_factory = sqlite3.Row
     return conn      
  
