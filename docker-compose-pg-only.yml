@@ -1,0 +1,18 @@
+services:
+  db_db:
+    container_name: db_db
+    restart: always
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - db_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./bbdd/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+volumes:
+  postgres_data:
+    driver: local
