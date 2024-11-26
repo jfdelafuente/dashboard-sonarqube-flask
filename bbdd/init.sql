@@ -1,3 +1,12 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+-- create a database
+CREATE DATABASE IF NOT EXISTS infocodes;
+
+-- use that db
+USE infocodes;
+
 DROP TABLE IF EXISTS metricas;
 
 CREATE TABLE metricas (
