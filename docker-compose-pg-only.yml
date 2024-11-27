@@ -9,8 +9,6 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    networks:
-      - db_network
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./bbdd/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
