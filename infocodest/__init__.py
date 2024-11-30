@@ -1,7 +1,9 @@
 from flask import Flask
+from config import BaseConfig
 from .errorhandlers import error_401, error_404, error_500
 from flask_cors import CORS
-from .extensions import db, login_manager, migrate, bootstrap, csrf
+from .database import db
+from .extensions import login_manager, migrate, bootstrap, csrf
 
 def register_error_handlers(app):
     # Registering Errorhandler
@@ -33,7 +35,7 @@ def initialize_plugins(app):
     CORS(app, resources={r"/*": {"origins": "*"}})
 
 
-def create_app(app_config):
+def create_app(app_config=BaseConfig):
     """Initialize the core application."""
     app = Flask(__name__)
     app.config.from_object(app_config)

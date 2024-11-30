@@ -1,15 +1,18 @@
 from flask import flash, redirect, render_template, request, url_for
 from flask_login import login_required, login_user, logout_user, current_user
 
-from infocodest.extensions import db
+from infocodest.database import db
 from infocodest.accounts import accounts_bp
 from infocodest.models.users import User
 from infocodest.accounts.forms import LoginForm, RegisterForm, PasswordForm
-
+from infocodest.extensions import login_manager
 from infocodest.models.util import verify_pass
 
 # accounts_bp = Blueprint("accounts", __name__)
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.filter(User.id == int(user_id)).first()
 
 @accounts_bp.route("/register", methods=["GET", "POST"])
 def register():

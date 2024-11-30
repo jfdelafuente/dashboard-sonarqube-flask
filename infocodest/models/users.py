@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask_login import UserMixin
-from infocodest.extensions import db
+from infocodest.database import db
 
 from infocodest.models.util import hash_pass
 

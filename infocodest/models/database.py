@@ -2,12 +2,13 @@ from sqlalchemy import create_engine, text
 import os
 import datetime
 import json
-from config import config
+from infocodest.database import db
+# from config import config
 
-db_connection_string = r"sqlite:///" + os.environ['DATABASE']
-# db_connection_string = r"sqlite:///db.sqlite3"
-DAYS = int(os.environ['DAYS'])
-# DAYS = 15
+# db_connection_string = r"sqlite:///" + os.environ['DATABASE']
+db_connection_string = r"sqlite:///db.sqlite3"
+# DAYS = int(os.environ['DAYS'])
+DAYS = 15
 
 engine = create_engine(
     db_connection_string,

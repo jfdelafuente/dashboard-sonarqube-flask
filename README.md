@@ -1,5 +1,21 @@
 # Cómo construir una aplicación web completa con Python y SQLite3
 
+### Instalar SQLAlchemy
+
+```bash
+# cd into SQLAlchemy source distribution
+cd path/to/sqlalchemy
+
+# install cython
+pip install cython
+
+# optionally build Cython extensions ahead of install
+python setup.py build_ext
+
+# run the install
+python setup.py install
+```
+
 Ejecutamos por este orden:
 
 python3.8 -m venv venv

@@ -1,6 +1,6 @@
 """Data models."""
 # from infocodest import db
-from infocodest.extensions import db
+from infocodest.database import db
 
 
 class Metrica(db.Model):
