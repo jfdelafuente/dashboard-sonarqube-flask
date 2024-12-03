@@ -1,11 +1,15 @@
 from flask import render_template, request
 from flask_login import login_required
 from infocodest.home import home_bp
-
-from datetime import datetime, date, timedelta
+from infocodest.models.metricas import Metrica
+# from infocodest.models.stat import Stat
+# from infocodest.models.historico import Historico
+from infocodest.models.proveedor import Proveedor
+# from infocodest.models.daily import Daily
+from datetime import datetime
 
 import infocodest.models.database as consulta
-from .consultas import get_metricas, get_distinct_providers, get_metricas_aplicacion, get_distinct_apps,get_historico_name, get_stats, get_metricas_proveedor, get_stats_aplicacion, get_stats_proveedor
+from .consultas import get_metricas, get_dailys, get_distinct_providers, get_metricas_aplicacion, get_distinct_apps,get_historico_name, get_stats, get_metricas_proveedor, get_stats_aplicacion, get_stats_proveedor, get_dailys_proveedor, get_dailys_details_aplicacion, get_dailys_details_repo
 
 
 # from sqlalchemy.sql import func

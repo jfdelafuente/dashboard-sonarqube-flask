@@ -16,10 +16,10 @@ class Registro(db.Model):
     num_bugs = db.Column(db.Integer, index=True, unique=True, nullable=False)
     num_quality = db.Column(db.Integer, index=True, unique=True, nullable=False)
     num_analisis = db.Column(db.Integer, index=True, unique=True, nullable=True)
-    
+
     def __repr__(self):
         return "<Registro {}>".format(self.aplicacion)
-    
+
     def to_dict(self):
         return {
                 c.name: str(getattr(self, c.name)) for c in self.__table__.columns

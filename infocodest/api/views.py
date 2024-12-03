@@ -1,4 +1,4 @@
-from flask import jsonify, url_for, redirect, json, request
+from flask import jsonify, json, request
 from infocodest.api import api_bp
 from infocodest.models.metricas import Metrica
 from infocodest.models.historico import Historico

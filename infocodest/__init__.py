@@ -17,7 +17,7 @@ def register_blueprints(app):
     from infocodest.home.views import home_bp
     from infocodest.charts.views import charts_bp
     from infocodest.api.views import api_bp
-    
+
     # Registering blueprints
     app.register_blueprint(accounts_bp)
     app.register_blueprint(home_bp)
@@ -44,6 +44,3 @@ def create_app(app_config=BaseConfig):
         register_blueprints(app)
         register_error_handlers(app)
     return app
-
-
-

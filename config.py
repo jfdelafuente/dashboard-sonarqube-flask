@@ -30,7 +30,6 @@ class BaseConfig(object):
 
     # try to set up a Relational DBMS
     if DB_ENGINE and DB_NAME and DB_USERNAME:
-
         try:
             
             # Relational DBMS: PSQL, MySql
@@ -42,11 +41,8 @@ class BaseConfig(object):
                 DB_PORT,
                 DB_NAME
             ) 
-
             USE_SQLITE  = False
-
         except Exception as e:
-
             print('> Error: DBMS Exception: ' + str(e) )
             print('> Fallback to SQLite ')    
 

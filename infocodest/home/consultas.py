@@ -7,7 +7,7 @@ from infocodest.models.daily import Daily
 
 from sqlalchemy.sql import func
 from sqlalchemy import and_
-
+from datetime import date, timedelta
 
 def get_distinct_apps():
     return Metrica.query.with_entities(Metrica.aplicacion).distinct().all()

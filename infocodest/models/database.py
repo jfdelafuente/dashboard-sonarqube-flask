@@ -16,7 +16,7 @@ engine = create_engine(
 
 
 def definir_texto(v1, v2):
-    if (v1==0) & (v2==0):
+    if (v1 == 0) & (v2 == 0):
         avance = 0
         comparativa = "Igual"
     else:
@@ -71,7 +71,7 @@ def getDatosMetricas():
     params = {}
     datos = getDatosComunes(queries, params)
     print(datos)
-    
+
     queries = {
             'aplicaciones': "SELECT COUNT(DISTINCT(aplicacion)) FROM DAILY WHERE created_on= :fecha",
             'repositorios': "SELECT COUNT(repo) FROM DAILY WHERE created_on= :fecha",

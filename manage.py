@@ -42,6 +42,7 @@ def recreate_db():
 @cli.command("create_admin")
 def create_admin():
     try:
+        email="lolo@gmail.com"
         user = User(email="lolo@gmail.com", password="lolololo", username="lolo")
         db.session.add(user)
         db.session.commit()

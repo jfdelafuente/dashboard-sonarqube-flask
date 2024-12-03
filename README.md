@@ -116,3 +116,20 @@ lanzar test_measures.ipynb para extraer los datos del proyecto de sonar.
 Esos datos se transforman y se creand dos nuevos ficheros; historico.csv y metricas.csv
 
 Posteriormente se lanza init_db.py para recrear la bbdd y cargar los csv (historico, metrica y proveedores).
+
+## FLAKE8
+
+La PEP8 es una guía que indica las convenciones estilísticas a seguir para escribir código Python. Se trata de un conjunto de recomendaciones cuyo objetivo es ayudar a escribir código más legible y abarca desde cómo nombrar variables, al número máximo de caracteres que una línea debe tener.
+
+Flake8 es un linter de tu código. Instalamos la dependencia de flake8
+
+```bash
+pip install flake8
+```
+
+Luego podemos ejecutar:
+
+```bash
+flake8 .\infocodest\  --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+flake8 .\infocodest\ --select F401
+```

@@ -35,7 +35,6 @@ if DEBUG:
     app.logger.info("FLASK_ENV        = " + app_config.FLASK_ENV)
     app.logger.info("Page Compression = " + "FALSE" if DEBUG else "TRUE")
     app.logger.info("DBMS             = " + app_config.SQLALCHEMY_DATABASE_URI)
-    ap
 
 
 if __name__ == "__main__":

@@ -16,7 +16,6 @@ class User(UserMixin, db.Model):
     created_on = db.Column(db.DateTime(), default=datetime.now(), index=True)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
 
-
     def __init__(self, **kwargs):
         for property, value in kwargs.items():
             # depending on whether value is an iterable or not, we must
@@ -30,7 +29,6 @@ class User(UserMixin, db.Model):
                 value = hash_pass(value)  # we need bytes here (not plain str)
 
             setattr(self, property, value)
-            
 
     def __repr__(self):
         return f"<users {self.username}>"

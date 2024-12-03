@@ -22,7 +22,19 @@ steps:
       - |
       - 'echo "Installing Python dependencies"'
       - "python -m pip install --upgrade pip"
+      - "pip install flake8 pytest"
       - "pip install -r requirements.txt"
+
+  - name: "python:3.7-slim"
+    id: Lint with flake8
+    entrypoint: /bin/sh
+    args:
+      - -c
+      - |
+      - 'echo "stop the build if there are Python syntax errors or undefined names"'
+      - "flake8 ./infocodest --count --select=E9,F63,F7,F82 --show-source --statistic"
+      - 'echo "exit-zero treats all errors as warnings."'
+      - "flake8 ./infocodest --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics"
 
   # This step runs the unit tests on the app
   - name: "python:3.7-slim"
