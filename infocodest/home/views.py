@@ -5,11 +5,11 @@ from infocodest.home import home_bp
 from datetime import datetime, date, timedelta
 
 import infocodest.models.database as consulta
-from .consultas import get_metricas, get_distinct_providers, get_metricas_aplicacion, get_distinct_apps,get_historico_name, get_stats, get_metricas_proveedor
+from .consultas import get_metricas, get_distinct_providers, get_metricas_aplicacion, get_distinct_apps,get_historico_name, get_stats, get_metricas_proveedor, get_stats_aplicacion, get_stats_proveedor
 
 
-from sqlalchemy.sql import func
-from sqlalchemy import and_
+# from sqlalchemy.sql import func
+# from sqlalchemy import and_
 
 # home_bp = Blueprint("home", __name__)
 

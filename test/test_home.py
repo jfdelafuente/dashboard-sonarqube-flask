@@ -6,7 +6,7 @@ def test_home_page(test_client):
     """
     response = test_client.get('/')
     assert response.status_code == 200
-    assert b"Sonar CFM - Home Page | Orange" in response.data
+    assert b"INFOCODES - Home Page | Orange" in response.data
 
 def test_home_page_post(test_client):
     """
@@ -22,13 +22,13 @@ def test_home_page_post(test_client):
 def test_metricas_page(test_client):
     response = test_client.get('/metricas')
     assert response.status_code == 200
-    assert b"Sonar CFM - Metricas | Orange" in response.data
+    assert b"INFOCODES - Metricas | Orange" in response.data
     
     
 def test_proveedores_metricas_page(test_client):
     response = test_client.get('/proveedores')
     assert response.status_code == 200
-    assert b"Sonar CFM - Proveedores Metricas | Orange" in response.data
+    assert b"INFOCODES - Proveedores Metricas | Orange" in response.data
     
 def test_historico_metricas_page(test_client):
     response = test_client.get('/historico')

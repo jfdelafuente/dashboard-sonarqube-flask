@@ -5,6 +5,10 @@ from infocodest.models.historico import Historico
 from infocodest.models.proveedor import Proveedor
 from infocodest.models.daily import Daily
 
+from sqlalchemy.sql import func
+from sqlalchemy import and_
+
+
 def get_distinct_apps():
     return Metrica.query.with_entities(Metrica.aplicacion).distinct().all()
 
