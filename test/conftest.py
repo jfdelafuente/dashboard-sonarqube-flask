@@ -43,7 +43,6 @@ def init_database(test_client):
     # Create the database and the database table
     db.create_all()
 
-
     # Insert user data
     default_user = User(
         username="admin_user", email="admin@gmail.com", password="admin_user"
@@ -55,7 +54,7 @@ def init_database(test_client):
 
     yield  # this is where the testing happens!
 
-    # db.drop_all()
+    db.drop_all()
 
 
 # @pytest.fixture(scope="function")
