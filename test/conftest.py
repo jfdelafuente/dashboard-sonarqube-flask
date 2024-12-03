@@ -13,31 +13,36 @@ def new_user():
     return user
 
 
-@pytest.fixture()
+@pytest.fixture(scope='module')
 def app():
     get_config_mode = "Testing"
     app_config = config_dict[get_config_mode.capitalize()]
     app = create_app(app_config)
+    print(f"DBMS             = {app_config.SQLALCHEMY_DATABASE_URI} ")
     # other setup can go here
     yield app
     # clean up / reset resources here
 
 
-@pytest.fixture()
+@pytest.fixture(scope='module')
 def test_client(app):
-    with app.test_client() as client:
-        return client
+    # Set the Testing configuration prior to creating the Flask application
+    os.environ['CONFIG_TYPE'] = 'config.TestingConfig'
+    flask_app = create_app()
+
+    # Create a test client using the Flask application configured for testing
+    with app.test_client() as testing_client:
+        # Establish an application context
+        with app.app_context():
+            yield testing_client  # this is where the testing happens!
 
 
-# @pytest.fixture()
-# def runner(app):
-#     return app.test_cli_runner()
 
-
-@pytest.fixture(scope="module")
+@pytest.fixture(scope='module')
 def init_database(test_client):
     # Create the database and the database table
     db.create_all()
+
 
     # Insert user data
     default_user = User(
@@ -53,26 +58,26 @@ def init_database(test_client):
     # db.drop_all()
 
 
-@pytest.fixture(scope="function")
-def log_in_default_user(test_client):
-    test_client.post(
-        "/login",
-        data={"username": "lolo", "email": "lolo@gmail.com", "password": "lolololo"},
-    )
+# @pytest.fixture(scope="function")
+# def log_in_default_user(test_client):
+#     test_client.post(
+#         "/login",
+#         data={"username": "lolo", "email": "lolo@gmail.com", "password": "lolololo"},
+#     )
 
-    yield  # this is where the testing happens!
+#     yield  # this is where the testing happens!
 
-    test_client.get("/logout")
+#     test_client.get("/logout")
 
 
-@pytest.fixture(scope="function")
-def log_in_default_user(test_client):
-    test_client.post(
-        "login",
-        data={"username": "lolo", "email": "lolo@gmail.com", "password": "lolololo"},
-    )
+# @pytest.fixture(scope="function")
+# def log_in_default_user(test_client):
+#     test_client.post(
+#         "login",
+#         data={"username": "lolo", "email": "lolo@gmail.com", "password": "lolololo"},
+#     )
 
-    yield  # this is where the testing happens!
+#     yield  # this is where the testing happens!
 
-    # Log out the user
-    test_client.get("/logout")
+#     # Log out the user
+#     test_client.get("/logout")
