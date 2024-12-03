@@ -1,4 +1,5 @@
 """Data models."""
+
 # from infocodest import db
 from infocodest.database import db
 
@@ -36,11 +37,9 @@ class Historico(db.Model):
     dloc_label = db.Column(db.String(64), unique=False, nullable=True)
     coverage_label = db.Column(db.String(64), unique=False, nullable=True)
     quality_gate = db.Column(db.String(64), unique=False, nullable=True)
-    
+
     def __repr__(self):
         return "<Historico {}>".format(self.aplicacion)
-    
+
     def to_dict(self):
-        return {
-                c.name: str(getattr(self, c.name)) for c in self.__table__.columns
-            }
+        return {c.name: str(getattr(self, c.name)) for c in self.__table__.columns}

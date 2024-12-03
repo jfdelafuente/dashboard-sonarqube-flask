@@ -1,4 +1,5 @@
 """Data models."""
+
 # from infocodest import db
 from infocodest.database import db
 
@@ -13,11 +14,8 @@ class Proveedor(db.Model):
     proveedor = db.Column(db.Text, index=False, unique=False, nullable=True)
     tipo = db.Column(db.Text, index=False, unique=False, nullable=True)
 
-
     def __repr__(self):
         return "<Proveedor {}>".format(self.aplicacion)
 
     def to_dict(self):
-        return {
-                c.name: str(getattr(self, c.name)) for c in self.__table__.columns
-            }
+        return {c.name: str(getattr(self, c.name)) for c in self.__table__.columns}

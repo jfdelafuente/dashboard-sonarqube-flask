@@ -18,4 +18,3 @@ def error_404(e):
 def error_500(e):
     # mc is for the menu highlighting, which in this case should not be set
     return render_template("errors/500.html", mc=""), 500
-

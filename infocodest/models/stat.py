@@ -1,4 +1,5 @@
 """Data models."""
+
 # from infocodest import db
 from infocodest.database import db
 

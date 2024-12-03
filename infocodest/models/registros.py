@@ -1,4 +1,5 @@
 """Data models."""
+
 # from infocodest import db
 from infocodest.database import db
 
@@ -21,6 +22,4 @@ class Registro(db.Model):
         return "<Registro {}>".format(self.aplicacion)
 
     def to_dict(self):
-        return {
-                c.name: str(getattr(self, c.name)) for c in self.__table__.columns
-            }
+        return {c.name: str(getattr(self, c.name)) for c in self.__table__.columns}

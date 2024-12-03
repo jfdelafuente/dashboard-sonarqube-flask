@@ -117,9 +117,11 @@ Esos datos se transforman y se creand dos nuevos ficheros; historico.csv y metri
 
 Posteriormente se lanza init_db.py para recrear la bbdd y cargar los csv (historico, metrica y proveedores).
 
-## FLAKE8
+## Formatear el código
 
 La PEP8 es una guía que indica las convenciones estilísticas a seguir para escribir código Python. Se trata de un conjunto de recomendaciones cuyo objetivo es ayudar a escribir código más legible y abarca desde cómo nombrar variables, al número máximo de caracteres que una línea debe tener.
+
+### Flake8
 
 Flake8 es un linter de tu código. Instalamos la dependencia de flake8
 
@@ -132,4 +134,23 @@ Luego podemos ejecutar:
 ```bash
 flake8 .\infocodest\  --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 flake8 .\infocodest\ --select F401
+```
+
+### Black
+
+Black es una herramienta que le permite identificar errores y formatear su código Python al mismo tiempo.
+
+```bash
+pip install black
+```
+
+Luego podemos ejecutar:
+
+```bash
+# sto comprobará qué archivos Python pueden formatearse en la carpeta actual (pero en realidad no modifica el archivo Python).
+black --chech .\infocodes
+# Esto muestra lo que hay que hacer con el archivo, pero no lo modifica.
+black --check --diff file_name.py
+# Para formatear más de un archivo Python, escribir
+black .\infocodes
 ```

@@ -6,7 +6,9 @@ from infocodest.models.users import User
 
 
 class PasswordForm(FlaskForm):
-    email = EmailField("Email Adress", id="email_create", validators=[DataRequired(), Email()])
+    email = EmailField(
+        "Email Adress", id="email_create", validators=[DataRequired(), Email()]
+    )
     submit = SubmitField("Reset Password")
 
 
@@ -26,7 +28,9 @@ class RegisterForm(FlaskForm):
     email = EmailField(
         "Email Adress", id="email_create", validators=[DataRequired(), Email()]
     )
-    password = PasswordField("Password", id="pwd_create", validators=[DataRequired(), Length(8, 72)])
+    password = PasswordField(
+        "Password", id="pwd_create", validators=[DataRequired(), Length(8, 72)]
+    )
     confirm_password = PasswordField(
         "Confirm Password",
         validators=[
@@ -36,7 +40,6 @@ class RegisterForm(FlaskForm):
         ],
     )
     submit = SubmitField("Create Account")
-
 
     def validate(self, extra_validators=None):
         initial_validation = super(RegisterForm, self).validate(extra_validators)

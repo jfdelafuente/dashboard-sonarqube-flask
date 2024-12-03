@@ -5,6 +5,7 @@ from flask_cors import CORS
 from .database import db
 from .extensions import login_manager, migrate, bootstrap, csrf
 
+
 def register_error_handlers(app):
     # Registering Errorhandler
     app.register_error_handler(401, error_401)
@@ -21,7 +22,7 @@ def register_blueprints(app):
     # Registering blueprints
     app.register_blueprint(accounts_bp)
     app.register_blueprint(home_bp)
-    app.register_blueprint(charts_bp, url_prefix='/charts')
+    app.register_blueprint(charts_bp, url_prefix="/charts")
     app.register_blueprint(api_bp)
 
 

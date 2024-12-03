@@ -1,4 +1,5 @@
 """Data models."""
+
 # from infocodest import db
 from infocodest.database import db
 
@@ -14,15 +15,15 @@ class Daily(db.Model):
     proveedor = db.Column(db.Text, index=False, unique=False, nullable=True)
     created_on = db.Column(db.DateTime(), unique=False, nullable=True)
     num_bugs = db.Column(db.Integer, index=False, unique=False, nullable=False)
-    num_vulnerabilities = db.Column(db.Integer, index=False, unique=False, nullable=False)
+    num_vulnerabilities = db.Column(
+        db.Integer, index=False, unique=False, nullable=False
+    )
     num_code_smells = db.Column(db.Integer, index=False, unique=False, nullable=False)
     num_quality = db.Column(db.Integer, index=False, unique=False, nullable=False)
     num_analisis = db.Column(db.Integer, index=False, unique=False, nullable=False)
 
     def __repr__(self):
         return "<Daily {}>".format(self.aplicacion)
-    
+
     def to_dict(self):
-        return {
-                c.name: str(getattr(self, c.name)) for c in self.__table__.columns
-        }
+        return {c.name: str(getattr(self, c.name)) for c in self.__table__.columns}

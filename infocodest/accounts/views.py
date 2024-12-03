@@ -10,9 +10,11 @@ from infocodest.models.util import verify_pass
 
 # accounts_bp = Blueprint("accounts", __name__)
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.filter(User.id == int(user_id)).first()
+
 
 @accounts_bp.route("/register", methods=["GET", "POST"])
 def register():
@@ -21,10 +23,14 @@ def register():
         return redirect(url_for("home.home"))
     form = RegisterForm(request.form)
     if form.validate_on_submit():
-        user = User(username=form.username.data, password=form.password.data, email=form.email.data)
+        user = User(
+            username=form.username.data,
+            password=form.password.data,
+            email=form.email.data,
+        )
         db.session.add(user)
         db.session.commit()
-        
+
         # Delete user from session
         logout_user()
 
@@ -51,7 +57,9 @@ def login():
             return redirect(url_for("home.home"))
         else:
             flash("Invalid username and/or password.", "danger")
-            return render_template("accounts/login.html", form=form, msg="Wrong user or password")
+            return render_template(
+                "accounts/login.html", form=form, msg="Wrong user or password"
+            )
     return render_template("accounts/login.html", form=form)
 
 
@@ -64,7 +72,12 @@ def password():
 def password_wtf():
     form = PasswordForm()
     if form.validate_on_submit():
-        return render_template("accounts/recuperar.html", msg="Se ha enviado un correo a {} para recuperar password.".format(form.email.data))
+        return render_template(
+            "accounts/recuperar.html",
+            msg="Se ha enviado un correo a {} para recuperar password.".format(
+                form.email.data
+            ),
+        )
     return render_template("accounts/password_wtf.html", form=form)
 
 
