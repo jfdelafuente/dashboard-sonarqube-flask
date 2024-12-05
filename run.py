@@ -5,7 +5,7 @@ from flask_minify import Minify
 from infocodest import create_app
 # from infocodest.extensions import db
 from config import config_dict
-from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv
 
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))

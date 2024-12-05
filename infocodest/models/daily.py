@@ -10,8 +10,8 @@ class Daily(db.Model):
     __tablename__ = "daily"
 
     id = db.Column(db.Integer, primary_key=True)
-    aplicacion = db.Column(db.String(64), index=False, unique=True, nullable=False)
-    repo = db.Column(db.Integer, index=True, unique=True, nullable=False)
+    aplicacion = db.Column(db.String(64), index=False, unique=False, nullable=False)
+    repo = db.Column(db.Integer, index=True, unique=False, nullable=False)
     proveedor = db.Column(db.Text, index=False, unique=False, nullable=True)
     created_on = db.Column(db.DateTime(), unique=False, nullable=True)
     num_bugs = db.Column(db.Integer, index=False, unique=False, nullable=False)

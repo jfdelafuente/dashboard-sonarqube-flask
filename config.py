@@ -1,8 +1,17 @@
-import os, random, string
+import os
+import random
+import string
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 class BaseConfig(object):
+
+    DEBUG = False
+    TESTING = False
+    CSRF_ENABLED = True
+    WTF_CSRF_ENABLED = True
+    DEBUG_TB_ENABLED = False
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
 
     # Assets Management
     ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')
@@ -47,16 +56,16 @@ class BaseConfig(object):
             print('> Fallback to SQLite ')    
 
     if USE_SQLITE:
-
-        # This will create a file in <app> FOLDER
         SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3') 
 
 class TestingConfig(BaseConfig):
     TESTING = True
+    WTF_CSRF_ENABLED = False
     SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(BASE_DIR, 'testdb.sqlite3')}"
     
 class ProductionConfig(BaseConfig):
     DEBUG = False
+    DEBUG_TB_ENABLED = False
 
     # Security
     SESSION_COOKIE_HTTPONLY = True
@@ -66,6 +75,8 @@ class ProductionConfig(BaseConfig):
 
 class DebugConfig(BaseConfig):
     DEBUG = True
+    WTF_CSRF_ENABLED = False
+    DEBUG_TB_ENABLED = True
 
 
 # Load all possible configurations

@@ -1,7 +1,6 @@
 from sqlalchemy import create_engine, text
 import os
 import datetime
-import json
 from infocodest.database import db
 
 # from config import config

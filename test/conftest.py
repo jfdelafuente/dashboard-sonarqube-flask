@@ -1,9 +1,9 @@
 import os
 import pytest
 
+from config import config_dict
 from infocodest import create_app
 from infocodest.database import db
-from config import config_dict
 from infocodest.models.users import User
 
 
@@ -18,7 +18,6 @@ def app():
     get_config_mode = "Testing"
     app_config = config_dict[get_config_mode.capitalize()]
     app = create_app(app_config)
-    print(f"DBMS             = {app_config.SQLALCHEMY_DATABASE_URI} ")
     # other setup can go here
     yield app
     # clean up / reset resources here
@@ -31,11 +30,10 @@ def test_client(app):
     flask_app = create_app()
 
     # Create a test client using the Flask application configured for testing
-    with app.test_client() as testing_client:
+    with flask_app.test_client() as testing_client:
         # Establish an application context
-        with app.app_context():
+        with flask_app.app_context():
             yield testing_client  # this is where the testing happens!
-
 
 
 @pytest.fixture(scope='module')
@@ -53,7 +51,6 @@ def init_database(test_client):
     db.session.commit()
 
     yield  # this is where the testing happens!
-
     db.drop_all()
 
 

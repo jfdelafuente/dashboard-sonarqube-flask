@@ -16,13 +16,13 @@ def register_error_handlers(app):
 def register_blueprints(app):
     from infocodest.accounts.views import accounts_bp
     from infocodest.home.views import home_bp
-    from infocodest.charts.views import charts_bp
+    # from infocodest.charts.views import charts_bp
     from infocodest.api.views import api_bp
 
     # Registering blueprints
     app.register_blueprint(accounts_bp)
     app.register_blueprint(home_bp)
-    app.register_blueprint(charts_bp, url_prefix="/charts")
+    # app.register_blueprint(charts_bp, url_prefix="/charts")
     app.register_blueprint(api_bp)
 
 
