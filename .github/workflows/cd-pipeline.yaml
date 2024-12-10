@@ -9,7 +9,7 @@ on:
 
 env:
   PORT: 5001
-  IMAGE: ${{ github.repository }}
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
     push_to_registry:
