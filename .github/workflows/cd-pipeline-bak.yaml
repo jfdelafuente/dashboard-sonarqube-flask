@@ -1,4 +1,4 @@
-name: CD Pipeline to Google Cloud Run (staging and production)
+name: CD Pipeline to Google Cloud Run (develop and production)
 on:
   push:
     branches:

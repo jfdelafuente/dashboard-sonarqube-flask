@@ -1,4 +1,4 @@
-name: CI Pipeline to staging/production environment
+name: CI Pipeline to develop/production environment
 
 on:
   pull_request:
