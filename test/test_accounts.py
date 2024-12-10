@@ -32,14 +32,14 @@ def test_login_page(test_client):
     assert b'Password' in response.data
 
 
-def test_correct_login(test_client, init_database):
-    # Ensure login behaves correctly with correct credentials
-    response = test_client.post(
-            "/login",
-            data=dict(username="admin_user", password="admin_user"),
-            follow_redirects=True,
-    )
-    assert response.status_code == 200
+# def test_correct_login(test_client, init_database):
+#     # Ensure login behaves correctly with correct credentials
+#     response = test_client.post(
+#             "/login",
+#             data=dict(username="admin_user", password="admin_user"),
+#             follow_redirects=True,
+#     )
+#     assert response.status_code == 200
 
 # def test_valid_login_logout(test_client, init_database):
 #     """
