@@ -2,7 +2,8 @@ from flask import render_template, request
 from flask_login import login_required
 from infocodest.home import home_bp
 from datetime import datetime
-
+from infocodest.models.metricas import Metrica
+from infocodest.models.proveedor import Proveedor
 import infocodest.models.database as consulta
 from infocodest.database.consultas import (
     get_metricas,

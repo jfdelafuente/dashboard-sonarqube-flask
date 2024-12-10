@@ -1,9 +1,5 @@
 from flask import render_template
 
-########################
-#### error handlers ####
-########################
-
 
 def error_401(e):
     # mc is for the menu highlighting, which in this case should not be set

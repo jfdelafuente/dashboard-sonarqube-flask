@@ -26,8 +26,18 @@ python3.8 -m venv venv
 
 👉 Set Up for Unix
 
+Instalamos virtualenv
 ```bash
-$ virtualenv venv
+python3 -m pip install --upgrade pip
+pip3 install virtualenv
+# Comprobamos la ruta de la version
+which virtualenv
+which python3
+```
+```bash
+# Creamos entorno virtualizado
+virtualenv -p /usr/bin/python3 venv
+
 $ source venv/bin/activate
 
 # Para desactivar
