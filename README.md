@@ -111,10 +111,18 @@ DEBUG=True
 > **Step 3** - Start the APP in `Docker`
 
 ```bash
+docker build -t flask-image .
+docker images
+docker run -d -it --name flaskapp -p 5005:5005 flask-image
+docker exec -it flaskapp bash
+```
+
+Utilizamos docker-compose:
+```bash
 docker-compose up --build 
 ```
 
-Visit `http://localhost:5085` in your browser. The app should be up & running.
+Visit `http://localhost:5005` in your browser. The app should be up & running.
 
 ## ✨ Test
 
