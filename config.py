@@ -1,24 +1,32 @@
-import os, random, string
+import os
+import random
+import string
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
-class Config(object):
+class BaseConfig(object):
 
-    # Default settings
-    FLASK_ENV = 'Development'
     DEBUG = False
     TESTING = False
+    CSRF_ENABLED = True
     WTF_CSRF_ENABLED = True
+    DEBUG_TB_ENABLED = False
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
 
     # Assets Management
-    ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static')  
-    
+    ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')
+
     # Set up the App SECRET_KEY
     SECRET_KEY  = os.getenv('SECRET_KEY', None)
     if not SECRET_KEY:
-        SECRET_KEY = ''.join(random.choice( string.ascii_lowercase  ) for i in range( 32 ))
+        SECRET_KEY = ''.join(random.choice( string.ascii_lowercase  ) for i in range( 32 ))    
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    
+    # General Config
+    FLASK_ENV = os.getenv("FLASK_ENV")
+    FLASK_APP = os.getenv("FLASK_APP")
+    FLASK_DEBUG = os.getenv("FLASK_DEBUG")
 
     DB_ENGINE   = os.getenv('DB_ENGINE'   , None)
     DB_USERNAME = os.getenv('DB_USERNAME' , None)
@@ -32,6 +40,7 @@ class Config(object):
     # try to set up a Relational DBMS
     if DB_ENGINE and DB_NAME and DB_USERNAME:
         try:
+            
             # Relational DBMS: PSQL, MySql
             SQLALCHEMY_DATABASE_URI = '{}://{}:{}@{}:{}/{}'.format(
                 DB_ENGINE,
@@ -41,37 +50,38 @@ class Config(object):
                 DB_PORT,
                 DB_NAME
             ) 
-
             USE_SQLITE  = False
         except Exception as e:
             print('> Error: DBMS Exception: ' + str(e) )
             print('> Fallback to SQLite ')    
 
     if USE_SQLITE:
-        # This will create a file in <app> FOLDER
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')
+        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3') 
+
+class TestingConfig(BaseConfig):
+    TESTING = True
+    WTF_CSRF_ENABLED = False
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(BASE_DIR, 'testdb.sqlite3')}"
     
-class ProductionConfig(Config):
-    FLASK_ENV = 'Production'
+class ProductionConfig(BaseConfig):
     DEBUG = False
-    TESTING = False
+    DEBUG_TB_ENABLED = False
+
     # Security
     SESSION_COOKIE_HTTPONLY = True
     REMEMBER_COOKIE_HTTPONLY = True
     REMEMBER_COOKIE_DURATION = 3600
 
-class DevelopmentConfig(Config):
+
+class DebugConfig(BaseConfig):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')
-    
-class TestingConfig(Config):
-    TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'testdb.sqlite3')
+    WTF_CSRF_ENABLED = False
+    DEBUG_TB_ENABLED = True
 
 
 # Load all possible configurations
 config_dict = {
     'Production': ProductionConfig,
     'Testing'   : TestingConfig,
-    'Development'     : DevelopmentConfig
+    'Debug'     : DebugConfig
 }
