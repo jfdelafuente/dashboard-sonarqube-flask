@@ -1,0 +1,36 @@
+name: CD Pipeline to Google Cloud Run (develop and production)
+on:
+  push:
+    branches:
+      - staging
+  workflow_dispatch: {}
+  release:
+    types: published
+
+env:
+  PORT: 5001
+  IMAGE: ${{ github.repository }}:${{github.sha}}
+jobs:
+    build:
+        runs-on: ubuntu-22.04
+        name: Setup project, Authorize GitHub Actions to GCP and Docker Hub, and deploy
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Authenticate for Docker Hub
+              id: docker-auth
+              env:
+                D_USER: ${{secrets.DOCKER_USERNAME}}
+                D_PASS: ${{secrets.DOCKER_PASSWORD}}
+              run: |
+                docker login -u $D_USER -p $D_PASS
+
+            - name: Build and tag Image
+              run: |
+                docker build -t ${{env.IMAGE}} .
+
+            - name: Push the image to Docker hub
+              run: |
+                docker push ${{env.IMAGE}}

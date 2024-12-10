@@ -5,24 +5,5 @@
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5432,
-            "driver": "PostgreSQL",
-            "name": "db_db",
-            "database": "postgres",
-            "username": "postgres"
-        },
-        {
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5432,
-            "driver": "PostgreSQL",
-            "name": "db _db",
-            "database": "postgres",
-            "username": "postgres"
-        }
-    ]
+    "sqltools.connections": []
 }
