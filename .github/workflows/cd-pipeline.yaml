@@ -60,7 +60,7 @@ jobs:
           echo "Deploying to develop/staging environment"
           gcloud run deploy ${{vars.GCR_STAGING_PROJECT_NAME}} \
           --region ${{vars.GCR_REGION}} \
-          --image ${{env.IMAGE_NAME}} \
+          --image ${{env.IMAGE_NAME}}:develop \
           --platform "managed" \
           --allow-unauthenticated \
           --tag develop \
