@@ -63,7 +63,7 @@ jobs:
           gcloud run deploy ${{vars.GCR_STAGING_PROJECT_NAME}} \
           --region ${{vars.GCR_REGION}} \
           --image ${{env.IMAGE_NAME}}:develop \
-          --port ${{env.PORT}}
+          --port ${{env.PORT}} \
           --platform "managed" \
           --allow-unauthenticated \
           --tag develop \
