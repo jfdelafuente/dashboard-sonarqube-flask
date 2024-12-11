@@ -11,56 +11,56 @@ env:
   IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/${{vars.IMAGE}}
 
 jobs:
-    push_to_registry:
-        runs-on: ubuntu-22.04
-        name: Push Docker image to Docker Hub
-        steps:
-        - name: Check out the repo
-          uses: actions/checkout@v4
+  push_to_registry:
+    runs-on: ubuntu-22.04
+    name: Push Docker image to Docker Hub
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
 
-        - name: Set up Docker Buildx
-          uses: docker/setup-buildx-action@v3
+      - name: Authenticate for GCP
+        id: gcp-auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
-        - name: Extract metadata (tags, labels) for Docker
-          id: meta
-          uses: docker/metadata-action@v5
-          with:
-            images: ${{ env.IMAGE_NAME }}
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
 
-        - name: Log in to Docker Hub
-          uses: docker/login-action@v3
-          with:
-            username: ${{ secrets.DOCKER_USERNAME }}
-            password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-        - name: Build and push Docker image
-          uses: docker/build-push-action@v5
-          with:
-            context: "{{defaultContext}}"
-            push: true
-            tags: ${{ steps.meta.outputs.tags }}
-            labels: ${{ steps.meta.outputs.labels }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
 
-        - name: Authenticate for GCP
-          id: gcp-auth
-          uses: google-github-actions/auth@v2
-          with:
-            credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-    
-        - name: Set up Cloud SDK
-          uses: google-github-actions/setup-gcloud@v2
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-        - name: Enable the Billing API
-          run: |
-            gcloud services enable cloudbilling.googleapis.com --project=${{secrets.GCP_PROJECT_ID}}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: "{{defaultContext}}"
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
-        - name: Deploy to GCP Run - Staging environment
-          if: github.ref != 'refs/heads/main'
-          run: |
-            echo "Deploying to develop/staging environment"
-            gcloud run deploy ${{vars.GCR_STAGING_PROJECT_NAME}} \
-            --region ${{vars.GCR_REGION}} \
-            --image ${{env.IMAGE_NAME}} \
-            --platform "managed" \
-            --allow-unauthenticated \
-            --tag develop \
+      - name: Enable the Billing API
+        run: |
+          gcloud services enable cloudbilling.googleapis.com --project=${{secrets.GCP_PROJECT_ID}}
+
+      - name: Deploy to GCP Run - Staging environment
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "Deploying to develop/staging environment"
+          gcloud run deploy ${{vars.GCR_STAGING_PROJECT_NAME}} \
+          --region ${{vars.GCR_REGION}} \
+          --image ${{env.IMAGE_NAME}} \
+          --platform "managed" \
+          --allow-unauthenticated \
+          --tag develop \
