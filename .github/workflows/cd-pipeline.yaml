@@ -53,6 +53,7 @@ jobs:
 
       - name: Enable the Billing API
         run: |
+          echo "Enable ... ${{secrets.GCP_PROJECT_ID}}"
           gcloud services enable cloudbilling.googleapis.com --project=${{secrets.GCP_PROJECT_ID}}
 
       - name: Deploy to GCP Run - Staging environment
@@ -62,6 +63,7 @@ jobs:
           gcloud run deploy ${{vars.GCR_STAGING_PROJECT_NAME}} \
           --region ${{vars.GCR_REGION}} \
           --image ${{env.IMAGE_NAME}}:develop \
+          --port ${{env.PORT}}
           --platform "managed" \
           --allow-unauthenticated \
           --tag develop \
