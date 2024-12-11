@@ -8,7 +8,7 @@ on:
     types: published
 
 env:
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: ${{vars.IMAGE}}:${{github.sha}}
 
 jobs:
     push_to_registry:
@@ -40,3 +40,14 @@ jobs:
             push: true
             tags: ${{ steps.meta.outputs.tags }}
             labels: ${{ steps.meta.outputs.labels }}
+
+        - name: Deploy to GCP Run - Staging environment
+          if: github.ref != 'refs/heads/main'
+          run: |
+            echo "Deploying to staging environment"
+            gcloud run deploy ${{vars.GCR_STAGING_PROJECT_NAME}} \
+            --region ${{vars.GCR_REGION}} \
+            --image ${{env.IMAGE_NAME}} \
+            --platform "managed" \
+            --allow-unauthenticated \
+            --tag staging \
