@@ -8,6 +8,7 @@ on:
     types: published
 
 env:
+  PORT: 5005
   IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/${{vars.IMAGE}}
 
 jobs:
