@@ -64,11 +64,6 @@ steps:
       - "europe-southwest1-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA"
 options:
   logging: CLOUD_LOGGING_ONLY
-artifacts:
-  objects:
-    location: "gs://my-sonar-bucket"
-    paths:
-      - "${SHORT_SHA}_test_log.xml"
 images:
   - europe-southwest1-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA
 # [END cloudbuild]
