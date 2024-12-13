@@ -21,4 +21,4 @@ gcloud services enable container.googleapis.com \
 
 echo "Environment variables configured:"
 echo PROJECT_ID="$PROJECT_ID"
-echo REGION="$REGION
+echo REGION="$REGION"
