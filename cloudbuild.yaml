@@ -37,7 +37,7 @@ steps:
     args:
       - "build"
       - "-t"
-      - "$REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA"
+      - "$_REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA"
       - "."
 
   # This step pushes the image to Artifact Registry
@@ -47,9 +47,9 @@ steps:
     id: Push
     args:
       - "push"
-      - "$REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA"
+      - "$_REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA"
 options:
   logging: CLOUD_LOGGING_ONLY
 images:
-  - $REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA
+  - $_REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA
 # [END cloudbuild]
