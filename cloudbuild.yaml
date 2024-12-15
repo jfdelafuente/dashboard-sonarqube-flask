@@ -1,57 +1,53 @@
 # [START cloudbuild]
 steps:
-  - name: "python:3.7-slim"
-    id: Install dependencies
-    entrypoint: /bin/sh
-    args:
-      - -c
-      - |
-      - 'echo "Installing Python dependencies"'
-      - "python -m pip install --upgrade pip"
-      - "pip install flake8 pytest"
-      - "pip install -r requirements.txt"
+- name: "python:3.7-slim"
+  id: Install dependencies
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - ""
+  - 'echo "Installing Python dependencies"'
+  - "python -m pip install --upgrade pip"
+  - "pip install flake8 pytest"
+  - "pip install -r requirements.txt"
 
-  - name: "python:3.7-slim"
-    id: Lint with flake8
-    entrypoint: /bin/sh
-    args:
-      - -c
-      - |
-      - 'echo "stop the build if there are Python syntax errors or undefined names"'
-      - "flake8 ./infocodest --count --select=E9,F63,F7,F82 --show-source --statistic"
-      - 'echo "exit-zero treats all errors as warnings."'
-      - "flake8 ./infocodest --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics"
+- name: "python:3.7-slim"
+  id: Lint with flake8
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - ""
+  - 'echo "stop the build if there are Python syntax errors or undefined names"'
+  - "flake8 ./infocodest --count --select=E9,F63,F7,F82 --show-source --statistic"
+  - 'echo "exit-zero treats all errors as warnings."'
+  - "flake8 ./infocodest --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics"
 
-  # This step runs the unit tests on the app
-  - name: "python:3.7-slim"
-    id: Test
-    entrypoint: /bin/sh
-    args:
-      - -c
-      - |
-      - "pytest test/ --junitxml=${SHORT_SHA}_test_log.xml"
+# This step runs the unit tests on the app
+- name: "python:3.7-slim"
+  id: Test
+  entrypoint: /bin/sh
+  args:
+  - -c
+  - ""
+  - "pytest test/ --junitxml=${SHORT_SHA}_test_log.xml"
 
-  # This step builds the container image.
-  - name: "gcr.io/cloud-builders/docker"
-    id: Build
-    args:
-      - "build"
-      - "-t"
-      - "$_REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA"
-      - "."
+# This step builds the container image.
+- name: "gcr.io/cloud-builders/docker"
+  id: Build
+  args:
+  - "build"
+  - "-t"
+  - "$_REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA"
+  - "."
 
-  # This step pushes the image to Artifact Registry
-  # The PROJECT_ID and SHORT_SHA variables are automatically
-  # replaced by Cloud Build.
-  - name: "gcr.io/cloud-builders/docker"
-    id: Push
-    args:
-      - "push"
-      - "$_REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA"
-options:
-  logging: CLOUD_LOGGING_ONLY
-images:
-  - $_REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA
+# This step pushes the image to Artifact Registry
+# The PROJECT_ID and SHORT_SHA variables are automatically
+# replaced by Cloud Build.
+- name: "gcr.io/cloud-builders/docker"
+  id: Push
+  args:
+  - "push"
+  - "$_REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA"
 # [END cloudbuild]
 
 # [START gke_management_gitops_delivery_cloudbuild_trigger_cd]
@@ -74,8 +70,8 @@ images:
   args:
   - '-c'
   - |
-     sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" kubernetes.yaml.tpl | \
-     sed "s/COMMIT_SHA/${SHORT_SHA}/g" > dashboard-sonarqube-flask-env/kubernetes.yaml
+    sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" kubernetes.yaml.tpl | \
+    sed "s/COMMIT_SHA/${SHORT_SHA}/g" > dashboard-sonarqube-flask-env/kubernetes.yaml
 
 # This step pushes the manifest back to hello-cloudbuild-env
 - name: 'gcr.io/cloud-builders/gcloud'
@@ -91,5 +87,8 @@ images:
     Built from commit ${COMMIT_SHA} of repository dashboard-sonarqube-flask
     Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
     git push origin candidate
-
 # [END gke_management_gitops_delivery_cloudbuild_trigger_cd]
+options:
+  logging: CLOUD_LOGGING_ONLY
+images:
+- $_REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA
