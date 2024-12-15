@@ -98,7 +98,11 @@ steps:
     git commit -m "Deploying image $_REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:${SHORT_SHA}
     Built from commit ${COMMIT_SHA} of repository dashboard-sonarqube-flask
     Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
-    git push origin candidate
+# git push origin candidate
+
+- name: 'gcr.io/cloud-builders/git'
+  args: [ 'push', 'https://github.com/jfdelafuente/dashboard-sonarqube-flask-env.git', 'candidate' ]
+
 # [END gke_management_gitops_delivery_cloudbuild_trigger_cd]
 options:
   logging: CLOUD_LOGGING_ONLY
