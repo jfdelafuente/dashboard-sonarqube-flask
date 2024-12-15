@@ -71,7 +71,7 @@ steps:
     'echo "Cloning app repo ..."'
     git clone https://github.com/jfdelafuente/dashboard-sonarqube-flask-env.git && \
     cd dashboard-sonarqube-flask-env && \
-    git checkout candidate &&
+    git checkout candidate && \
     'echo "Updating image tag version ..."'
 
 # This step generates the new manifest
