@@ -85,6 +85,8 @@ steps:
     sed "s/COMMIT_SHA/${SHORT_SHA}/g" > dashboard-sonarqube-flask-env/kubernetes.yaml
     cat dashboard-sonarqube-flask-env/kubernetes.yaml
     git status
+    git config --global user.name "jfdelafuente"
+    git config --global user.email "josefcodelafuente@gmail.com"
 
 # This step pushes the manifest back to hello-cloudbuild-env
 - name: 'gcr.io/cloud-builders/gcloud'
