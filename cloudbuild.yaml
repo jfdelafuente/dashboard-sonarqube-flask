@@ -71,7 +71,8 @@ steps:
     git clone https://github.com/jfdelafuente/dashboard-sonarqube-flask-env.git && \
     cd dashboard-sonarqube-flask-env && \
     git checkout candidate && \
-    git status
+    git config --global user.name "jfdelafuente" \
+    git config --global user.email "josefcodelafuente@gmail.com"
 
 # This step generates the new manifest
 - name: 'gcr.io/cloud-builders/gcloud'
@@ -84,9 +85,6 @@ steps:
     sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" kubernetes.yaml.tpl | \
     sed "s/COMMIT_SHA/${SHORT_SHA}/g" > dashboard-sonarqube-flask-env/kubernetes.yaml
     cat dashboard-sonarqube-flask-env/kubernetes.yaml
-    git status
-    git config --global user.name "jfdelafuente"
-    git config --global user.email "josefcodelafuente@gmail.com"
 
 # This step pushes the manifest back to hello-cloudbuild-env
 - name: 'gcr.io/cloud-builders/gcloud'
