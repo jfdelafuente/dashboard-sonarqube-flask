@@ -52,16 +52,25 @@ steps:
 
 # [START gke_management_gitops_delivery_cloudbuild_trigger_cd]
 # This step clones the hello-cloudbuild-env repository
-- name: 'gcr.io/cloud-builders/gcloud'
+# - name: 'gcr.io/cloud-builders/gcloud'
+#   id: Clone env repository
+#   entrypoint: /bin/sh
+#   args:
+#   - '-c'
+#   - |
+#     gcloud source repos clone dashboard-sonarqube-flask-env && \
+#     cd dashboard-sonarqube-flask-env && \
+#     git checkout candidate && \
+#     git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
+- name: 'gcr.io/cloud-builders/git'
   id: Clone env repository
   entrypoint: /bin/sh
   args:
   - '-c'
   - |
-    gcloud source repos clone dashboard-sonarqube-flask-env && \
+    git clone https://github.com/jfdelafuente/dashboard-sonarqube-flask-env.git \
     cd dashboard-sonarqube-flask-env && \
-    git checkout candidate && \
-    git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
+    git checkout candidate && 
 
 # This step generates the new manifest
 - name: 'gcr.io/cloud-builders/gcloud'
