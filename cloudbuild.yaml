@@ -71,8 +71,7 @@ steps:
     git clone https://github.com/jfdelafuente/dashboard-sonarqube-flask-env.git && \
     cd dashboard-sonarqube-flask-env && \
     git checkout candidate && \
-    git config --global user.name "jfdelafuente" \
-    git config --global user.email "josefcodelafuente@gmail.com"
+    git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
 
 # This step generates the new manifest
 - name: 'gcr.io/cloud-builders/gcloud'
