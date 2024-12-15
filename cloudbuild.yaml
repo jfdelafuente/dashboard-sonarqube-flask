@@ -94,6 +94,7 @@ steps:
   - |
     set -x && \
     cd dashboard-sonarqube-flask-env && \
+    git checkout candidate && \
     git add kubernetes.yaml && \
     git commit -m "Deploying image $_REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:${SHORT_SHA}
     Built from commit ${COMMIT_SHA} of repository dashboard-sonarqube-flask
