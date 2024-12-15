@@ -53,3 +53,43 @@ options:
 images:
   - $_REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:$SHORT_SHA
 # [END cloudbuild]
+
+# [START gke_management_gitops_delivery_cloudbuild_trigger_cd]
+# This step clones the hello-cloudbuild-env repository
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Clone env repository
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+    gcloud source repos clone dashboard-sonarqube-flask-env && \
+    cd dashboard-sonarqube-flask-env && \
+    git checkout candidate && \
+    git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
+
+# This step generates the new manifest
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Generate manifest
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+     sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" kubernetes.yaml.tpl | \
+     sed "s/COMMIT_SHA/${SHORT_SHA}/g" > dashboard-sonarqube-flask-env/kubernetes.yaml
+
+# This step pushes the manifest back to hello-cloudbuild-env
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: Push manifest
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+    set -x && \
+    cd dashboard-sonarqube-flask-env && \
+    git add kubernetes.yaml && \
+    git commit -m "Deploying image $_REGION-docker.pkg.dev/$PROJECT_ID/my-repository/dashboard-sonarqube-flask:${SHORT_SHA}
+    Built from commit ${COMMIT_SHA} of repository dashboard-sonarqube-flask
+    Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
+    git push origin candidate
+
+# [END gke_management_gitops_delivery_cloudbuild_trigger_cd]
