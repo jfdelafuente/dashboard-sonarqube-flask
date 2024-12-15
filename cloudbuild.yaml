@@ -68,7 +68,6 @@ steps:
   args:
   - '-c'
   - |
-    'echo "Cloning app repo ..."'
     git clone https://github.com/jfdelafuente/dashboard-sonarqube-flask-env.git && \
     cd dashboard-sonarqube-flask-env && \
     git checkout candidate && \
