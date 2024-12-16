@@ -62,7 +62,7 @@ jobs:
         with:
           service: '${{vars.GCR_STAGING_PROJECT_NAME}}-cr-una'
           region: '${{vars.GCR_REGION}}'
-          flags: '--port ${{env.PORT}}, --allow-unauthenticated'
+          flags: '--port ${{env.PORT}} --allow-unauthenticated'
           image: '${{env.IMAGE_NAME}}:develop'
       
       - name: 'Show output'
