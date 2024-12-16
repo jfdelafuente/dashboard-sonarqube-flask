@@ -61,7 +61,7 @@ jobs:
         if: github.ref != 'refs/heads/main'
         run: |
           echo "Deploying to develop/staging environment"
-          gcloud run deploy ${{vars.GCR_STAGING_PROJECT_NAME}} \
+          gcloud run deploy ${{vars.GCR_STAGING_PROJECT_NAME}}-wl \
           --region ${{vars.GCR_REGION}} \
           --image ${{env.IMAGE_NAME}}:develop \
           --port ${{env.PORT}} \
