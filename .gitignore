@@ -38,3 +38,6 @@ apps/static/assets/.temp
 *.csv
 *.xml
 .vscode/settings.json
+
+# wiki
+wiki/*

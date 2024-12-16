@@ -27,6 +27,7 @@ python3.8 -m venv venv
 👉 Set Up for Unix
 
 Instalamos virtualenv
+
 ```bash
 python3 -m pip install --upgrade pip
 pip3 install virtualenv
@@ -34,10 +35,12 @@ pip3 install virtualenv
 which virtualenv
 which python3
 ```
+
 ```bash
 # Creamos entorno virtualizado
 virtualenv -p /usr/bin/python3 venv
 
+# Activar
 $ source venv/bin/activate
 
 # Para desactivar
@@ -90,11 +93,11 @@ o
 $ flask --app run --debug run
 ```
 
-At this point, the app runs at http://127.0.0.1:5000/.
+At this point, the app runs at <http://127.0.0.1:5000/>.
 
 ## ✨ Start the app in Docker
 
-> **Step 1** - Download the code from the GH repository (using `GIT`) 
+> **Step 1** - Download the code from the GH repository (using `GIT`)
 
 ```bash
 # Get the code
@@ -118,6 +121,7 @@ docker exec -it flaskapp bash
 ```
 
 Utilizamos docker-compose:
+
 ```bash
 docker-compose up --build 
 ```
@@ -127,13 +131,6 @@ Visit `http://localhost:5005` in your browser. The app should be up & running.
 ## ✨ Test
 
 (venv) python -m pytest --setup-show --cov=apps --cov-report=html
-
-ultimas modificaciones
-
-lanzar test_measures.ipynb para extraer los datos del proyecto de sonar.
-Esos datos se transforman y se creand dos nuevos ficheros; historico.csv y metricas.csv
-
-Posteriormente se lanza init_db.py para recrear la bbdd y cargar los csv (historico, metrica y proveedores).
 
 ## Formatear el código
 
