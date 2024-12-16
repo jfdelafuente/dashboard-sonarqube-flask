@@ -3,7 +3,7 @@ name: CI Pipeline to develop/production environment
 on:
   pull_request:
     branches: 
-        - main
+        - master
         - develop
 
 jobs:
