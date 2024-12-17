@@ -1,4 +1,4 @@
-name: CD Pipeline to Docker Hub  (develop and production)
+name: CD Pipeline to Docker Hub and Cloud Run (develop and production)
 on:
   push:
     branches:
@@ -12,21 +12,19 @@ env:
   IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/${{vars.IMAGE}}
 
 jobs:
-  push_to_registry:
+  test:
+    runs-on: ubuntu-22.04
+    name: Setup, Test and
+    steps:
+      - name: Setup, Lint and Test project
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+
+  pull_to_registry:
     runs-on: ubuntu-22.04
     name: Push Docker image to Docker Hub
     steps:
       - name: Check out the repo
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
-
-      - name: Authenticate for GCP
-        id: gcp-auth
-        uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
 
       - name: Log in to Docker Hub
         uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567
@@ -53,6 +51,26 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+     
+      - name: 'Show output'
+        run: |2-
+          echo ${{ steps.meta.outputs.version }}
+
+  deploy:
+    runs-on: ubuntu-22.04
+    name: Deploy Google Cloud
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+
+      - name: Authenticate for Google Cloud
+        id: gcp-auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
 
       - name: Enable the Billing API
         run: |
