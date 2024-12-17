@@ -95,7 +95,7 @@ jobs:
           service: '${{vars.GCR_STAGING_PROJECT_NAME}}'
           region: '${{vars.GCR_REGION}}'
           flags: '--port ${{env.PORT}} --allow-unauthenticated'
-          image: '${{env.IMAGE_NAME}}:master'
+          image: '${{env.IMAGE_NAME}}:latest'
       
       - name: 'Show output'
         run: |2-
