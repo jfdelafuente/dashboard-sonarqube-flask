@@ -77,11 +77,12 @@ jobs:
           echo "Enable ... ${{secrets.GCP_PROJECT_ID}}"
           gcloud services enable cloudbilling.googleapis.com --project=${{secrets.GCP_PROJECT_ID}}
 
-      - name: 'Deploy to Cloud Run'
+      - name: 'Deploy to Cloud Run - Staging enviroment'
+        if: github.ref != 'refs/heads/master'
         id: deploy
         uses: 'google-github-actions/deploy-cloudrun@33553064113a37d688aa6937bacbdc481580be17' # google-github-actions/deploy-cloudrun@v2
         with:
-          service: '${{vars.GCR_STAGING_PROJECT_NAME}}-cr-una'
+          service: '${{vars.GCR_STAGING_PROJECT_NAME}}'
           region: '${{vars.GCR_REGION}}'
           flags: '--port ${{env.PORT}} --allow-unauthenticated'
           image: '${{env.IMAGE_NAME}}:develop'
