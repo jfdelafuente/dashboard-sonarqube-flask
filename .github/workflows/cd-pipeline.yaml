@@ -92,12 +92,12 @@ jobs:
         id: deploy_prod
         uses: 'google-github-actions/deploy-cloudrun@33553064113a37d688aa6937bacbdc481580be17' # google-github-actions/deploy-cloudrun@v2
         with:
-          service: '${{vars.GCR_STAGING_PROJECT_NAME}}'
+          service: '${{vars.GCR_PROJECT_NAME}}'
           region: '${{vars.GCR_REGION}}'
           flags: '--port ${{env.PORT}} --allow-unauthenticated'
           image: '${{env.IMAGE_NAME}}:latest'
       
       - name: 'Show output'
         run: |2-
-          echo ${{ steps.deploy.outputs.url }}
-          echo ${{ steps.deploy_prod.outputs.url }}
+          echo 'staging : ${{ steps.deploy.outputs.url }}'
+          echo 'pro     : ${{ steps.deploy_prod.outputs.url }}'
