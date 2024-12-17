@@ -86,7 +86,18 @@ jobs:
           region: '${{vars.GCR_REGION}}'
           flags: '--port ${{env.PORT}} --allow-unauthenticated'
           image: '${{env.IMAGE_NAME}}:develop'
+
+      - name: 'Deploy to Cloud Run - Prod enviroment'
+        if: github.event_name == 'release' && github.event.action == 'published' && github.event.release.target_commitish == 'master'
+        id: deploy_prod
+        uses: 'google-github-actions/deploy-cloudrun@33553064113a37d688aa6937bacbdc481580be17' # google-github-actions/deploy-cloudrun@v2
+        with:
+          service: '${{vars.GCR_STAGING_PROJECT_NAME}}'
+          region: '${{vars.GCR_REGION}}'
+          flags: '--port ${{env.PORT}} --allow-unauthenticated'
+          image: '${{env.IMAGE_NAME}}:master'
       
       - name: 'Show output'
         run: |2-
           echo ${{ steps.deploy.outputs.url }}
+          echo ${{ steps.deploy_prod.outputs.url }}
