@@ -118,6 +118,7 @@ docker exec -it flaskapp bash
 ```
 
 Utilizamos docker-compose:
+
 ```bash
 docker-compose up --build 
 ```

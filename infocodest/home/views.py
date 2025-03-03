@@ -29,7 +29,7 @@ from infocodest.database.consultas import (
 
 
 @home_bp.route("/")
-@login_required
+# @login_required
 def home():
     return render_template(
         "home/index.html", date=datetime.now(), dato=consulta.getDatosMetricas()
@@ -37,7 +37,7 @@ def home():
 
 
 @home_bp.route("/metricas")
-@login_required
+# @login_required
 def metricas():
     # metricas = Metrica.query.all()
     return render_template(
